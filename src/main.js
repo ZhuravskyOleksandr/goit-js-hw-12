@@ -28,7 +28,6 @@ async function searchImages(event) {
     
   try {
     const data = await serviceImages(searchQuery);
-    
     if (data.hits.length === 0) {
       throw new Error('Sorry, there are no images matching your search query. Please try again!');
     }
@@ -71,10 +70,8 @@ async function loadMore() {
       top: liCoordinates.height * 2,
       behavior: 'smooth',
     });
-
-    const totalPages = Math.floor(data.totalHits / per_page);
     
-    if (page > totalPages) {
+    if (page * per_page > data.totalHits) {
       throw new Error('We\'re sorry, but you\'ve reached the end of search results.');
     }
   } catch (error) {
